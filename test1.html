@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+  <div id="menu">
+    <ul>
+      <menu-tab>
+        <li slot="content" :class="tab1" @click="change(1)">タブ1</li>
+      </menu-tab>
+      <menu-tab>
+        <li slot="content" :class="tab2" @click="change(2)">タブ2</li>
+      </menu-tab>
+      <menu-tab>
+        <li slot="content" :class="tab3" @click="change(3)">タブ3</li>
+      </menu-tab>
+    </ul>
+    <div>
+      <menu-content>
+        <p slot="content" v-show="show1">コンテンツ1</p>
+      </menu-content>
+      <menu-content>
+        <p slot="content" v-show="show2">コンテンツ2</p>
+      </menu-content>
+      <menu-content>
+        <p slot="content" v-show="show3">コンテンツ3</p>
+      </menu-content>
+    </div>
+  </div>
+  <script>
+    Vue.component("menu-tab",{
+      template:`
+      <div>
+        <slot name="content">タブ１</slot>
+      </div>
+      `,
+    })
+      Vue.component("menu-content", {
+        template: `
+      <div>
+        <slot name="content">コンテンツ１</slot>
+      </div>
+      `,
+      })
+    const vm = new Vue({
+      el:"#menu",
+      data:{
+        tab:1
+      },
+      computed:{
+        tab1: function () {
+          if (this.tab == 1) {
+            return "active"
+          } else {
+            return "taboff"
+          }
+        },
+        tab2: function () {
+          if (this.tab == 2) {
+            return "active"
+          } else {
+            return "taboff"
+          }
+        },
+        tab3: function () {
+          if (this.tab == 3) {
+            return "active"
+          } else {
+            return "taboff"
+          }
+        },
+        show1:function(){
+          if(this.tab == 1){
+            return true
+          }else{
+            return false
+          }
+        },
+        show2: function () {
+          if (this.tab == 2) {
+            return true
+          } else {
+            return false
+          }
+        },
+        show3: function () {
+          if (this.tab == 3) {
+            return true
+          } else {
+            return false
+          }
+        }
+      },
+      methods:{
+        change:function(x){
+          this.tab = x
+        }
+      }
+    })
+  </script>
+  <style>
+    ul{
+      display: flex;
+      /* border: solid; */
+      justify-content: left;
+      padding-left: 0px;
+    }
+    li{
+      list-style: none;
+      /* display: inline-block; */
+      border: 1px solid;
+      padding: 5px 30px;
+    }
+    .active{
+      background-color: black;
+      color: white;
+    }
+  </style>
+</body>
+</html>
